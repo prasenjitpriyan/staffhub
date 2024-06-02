@@ -1,48 +1,22 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+
 const Home = () => {
-  const tableItems = [
-    {
-      avatar:
-        "https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
-      name: "Liam James",
-      email: "liamjames@example.com",
-      phone_nimber: "+1 (555) 000-000",
-      position: "Software engineer",
-      salary: "$100K",
-    },
-    {
-      avatar: "https://randomuser.me/api/portraits/men/86.jpg",
-      name: "Olivia Emma",
-      email: "oliviaemma@example.com",
-      phone_nimber: "+1 (555) 000-000",
-      position: "Product designer",
-      salary: "$90K",
-    },
-    {
-      avatar: "https://randomuser.me/api/portraits/women/79.jpg",
-      name: "William Benjamin",
-      email: "william.benjamin@example.com",
-      phone_nimber: "+1 (555) 000-000",
-      position: "Front-end developer",
-      salary: "$80K",
-    },
-    {
-      avatar: "https://api.uifaces.co/our-content/donated/xZ4wg2Xj.jpg",
-      name: "Henry Theodore",
-      email: "henrytheodore@example.com",
-      phone_nimber: "+1 (555) 000-000",
-      position: "Laravel engineer",
-      salary: "$120K",
-    },
-    {
-      avatar:
-        "https://images.unsplash.com/photo-1439911767590-c724b615299d?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
-      name: "Amelia Elijah",
-      email: "amelia.elijah@example.com",
-      phone_nimber: "+1 (555) 000-000",
-      position: "Open source manager",
-      salary: "$75K",
-    },
-  ];
+  //const [loading, setLoading] = useState("false");
+  const [employees, setEmployees] = useState([]);
+
+  const getEmployees = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/employees");
+      setEmployees(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getEmployees();
+  }, []);
 
   return (
     <div className="min-h-[70svh] max-w-screen-xl mx-auto px-4 md:px-8 mt-5">
@@ -52,8 +26,8 @@ const Home = () => {
             Team members
           </h3>
           <p className="text-gray-600 mt-2">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.
+            StaffHub is a cloud-based platform designed to help desk-free
+            workers manage their workday.
           </p>
         </div>
         <div className="mt-3 md:mt-0">
@@ -71,13 +45,13 @@ const Home = () => {
             <tr>
               <th className="py-3 px-6">Username</th>
               <th className="py-3 px-6">Email</th>
-              <th className="py-3 px-6">Position</th>
+              <th className="py-3 px-6">Phone Number</th>
               <th className="py-3 px-6">Salary</th>
               <th className="py-3 px-6"></th>
             </tr>
           </thead>
           <tbody className="text-gray-600 divide-y">
-            {tableItems.map((item, idx) => (
+            {employees.map((item, idx) => (
               <tr key={idx}>
                 <td className="flex items-center gap-x-3 py-3 px-6 whitespace-nowrap">
                   <img src={item.avatar} className="w-10 h-10 rounded-full" />
@@ -90,11 +64,11 @@ const Home = () => {
                     </span>
                   </div>
                 </td>
+                <td className="px-6 py-4 whitespace-nowrap">{item.email}</td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  {item.phone_nimber}
+                  {item.phone_number}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">{item.position}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{item.salary}</td>
+                <td className="px-6 py-4 whitespace-nowrap">${item.salary}</td>
                 <td className="text-right px-6 whitespace-nowrap">
                   <a
                     href="/"
