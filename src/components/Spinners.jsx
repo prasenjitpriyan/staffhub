@@ -7,11 +7,11 @@ const override = {
   borderColor: "blue",
 };
 
-const Spinners = (color, loading) => {
+const Spinners = () => {
   return (
     <ClipLoader
-      color={color}
-      loading={loading}
+      color="blue"
+      loading="true"
       cssOverride={override}
       size={150}
       aria-label="Loading Spinner"
