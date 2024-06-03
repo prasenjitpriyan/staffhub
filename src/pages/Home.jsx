@@ -5,16 +5,16 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   const [employees, setEmployees] = useState([]);
-  const [loadingg, setLoadingg] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const getEmployees = async () => {
     try {
       const response = await axios.get("http://localhost:3000/employees");
       setEmployees(response.data);
-      setLoadingg(false);
+      setLoading(false);
     } catch (error) {
       console.error(error);
-      setLoadingg(true);
+      setLoading(true);
     }
   };
 
@@ -44,7 +44,7 @@ const Home = () => {
         </div>
       </div>
       <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto">
-        {loadingg ? (
+        {loading ? (
           <Spinners />
         ) : (
           <table className="w-full table-auto text-sm text-left">
@@ -79,12 +79,12 @@ const Home = () => {
                     ${item.salary}
                   </td>
                   <td className="text-right px-6 whitespace-nowrap">
-                    <a
-                      href="/"
+                    <Link
+                      to={`/editMember/${item.id}`}
                       className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
                     >
                       Edit
-                    </a>
+                    </Link>
                     <button
                       href="/"
                       className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"

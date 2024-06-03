@@ -193,15 +193,12 @@
       "salary": 14983
     },
     {
-      "id": "25"
-    },
-    {
       "id": "26",
       "avatar": "https://img.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg?w=1380&t=st=1717323080~exp=1717323680~hmac=a8171c00dd4658b5ced867f878e12d805d6f762d020073731a510d94ae37ea47",
       "name": "Jeffrey Nguyen",
       "email": "john69@hotmail.com",
       "phoneNumber": "+1-750-510-2557",
-      "salary": 17327
+      "salary": 173272
     },
     {
       "id": "27",
@@ -244,12 +241,11 @@
       "salary": 64320
     },
     {
-      "id": 0.48208007196434655,
+      "id": "0.6",
       "name": "Prasenjit Das",
-      "email": "prasenjitpriyan@gmail.com",
+      "email": "prasenjitpriyan@icloud.com",
       "phoneNumber": "09038332076",
-      "salary": "89000",
-      "phone number": "6",
+      "salary": "80000",
       "avatar": "https://png.pngtree.com/png-clipart/20200224/original/pngtree-cartoon-color-simple-male-avatar-png-image_5230557.jpg"
     }
   ]

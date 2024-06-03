@@ -1,37 +1,30 @@
 import axios from "axios";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
-const AddMember = () => {
-  const [employee, setEmployee] = useState({
-    id: Math.random().toFixed(1),
-    name: "",
-    email: "",
-    phoneNumber: "",
-    salary: 0,
-  });
+const EditMember = () => {
+  const { id } = useParams();
+  const [data, setData] = useState([]);
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setEmployee({ ...employee, [e.target.name]: e.target.value });
-  };
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/employees/${id}`)
+      .then((res) => setData(res.data))
+      .catch((err) => console.error(err));
+  }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/employees",
-        employee
-      );
-      console.log("Post created:", response.data);
-      navigate("/");
-    } catch (error) {
-      console.error("Error creating post:", error);
-    }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    await axios
+      .put(`http://localhost:3000/employees/${id}`, data)
+      .then((res) => {
+        alert("dataupdated succesfully!");
+        setData(res.data);
+        navigate("/");
+      })
+      .catch((err) => console.error(err));
   };
-
-  console.log(employee);
 
   return (
     <div className="mx-14 mt-10">
@@ -48,16 +41,16 @@ const AddMember = () => {
               name="name"
               className="mt-1 block w-1/2 rounded-md border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:font-semibold placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
               placeholder="Full Name *"
-              value={employee.name}
-              onChange={handleChange}
+              value={data.name}
+              onChange={(e) => setData({ ...data, name: e.target.value })}
             />
             <input
               type="email"
               name="email"
               className="mt-1 block w-1/2 rounded-md border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:font-semibold placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
               placeholder="Email *"
-              value={employee.email}
-              onChange={handleChange}
+              value={data.email}
+              onChange={(e) => setData({ ...data, email: e.target.value })}
             />
           </div>
           <div className="my-6 flex gap-4">
@@ -66,16 +59,18 @@ const AddMember = () => {
               name="phoneNumber"
               className="mt-1 block w-1/2 rounded-md border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:font-semibold placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
               placeholder="Phone Number *"
-              value={employee.phoneNumber}
-              onChange={handleChange}
+              value={data.phoneNumber}
+              onChange={(e) =>
+                setData({ ...data, phoneNumber: e.target.value })
+              }
             />
             <input
               type="Salary"
               name="salary"
               className="mt-1 block w-1/2 rounded-md border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:font-semibold placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
               placeholder="Salary *"
-              value={employee.salary}
-              onChange={handleChange}
+              value={data.salary}
+              onChange={(e) => setData({ ...data, salary: e.target.value })}
             />
           </div>
           <div className="">
@@ -84,8 +79,8 @@ const AddMember = () => {
               name="avatar"
               className="mb-10 h-40 w-full rounded-md border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:font-semibold placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
               placeholder="Put any image link here *"
-              value={employee.avatar}
-              onChange={handleChange}
+              value={data.avatar}
+              onChange={(e) => setData({ ...data, avatar: e.target.value })}
             />
           </div>
           <div className="flex justify-center gap-5">
@@ -99,7 +94,7 @@ const AddMember = () => {
               type="submit"
               className="cursor-pointer rounded-lg bg-blue-700 px-8 py-5 text-sm font-semibold text-white"
             >
-              Add Member
+              Edit Member
             </button>
           </div>
         </form>
@@ -108,4 +103,4 @@ const AddMember = () => {
   );
 };
 
-export default AddMember;
+export default EditMember;
