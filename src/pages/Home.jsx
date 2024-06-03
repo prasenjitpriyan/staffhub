@@ -18,9 +18,22 @@ const Home = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    const conf = window.confirm("Do you want to delete");
+    if (conf) {
+      axios
+        .delete(`http://localhost:3000/employees/${id}`)
+        .then(() => {
+          alert("Record has deleted");
+          setLoading(false);
+        })
+        .catch((err) => console.error(err));
+    }
+  };
+
   useEffect(() => {
     getEmployees();
-  }, []);
+  }, [employees]);
 
   return (
     <div className="min-h-[70svh] max-w-screen-xl mx-auto px-4 md:px-8 mt-5">
@@ -86,7 +99,7 @@ const Home = () => {
                       Edit
                     </Link>
                     <button
-                      href="/"
+                      onClick={() => handleDelete(item.id)}
                       className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
                     >
                       Delete
