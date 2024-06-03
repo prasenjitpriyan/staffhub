@@ -73,7 +73,7 @@ const Home = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">{item.email}</td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {item.phone_number}
+                    {item.phoneNumber}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     ${item.salary}
