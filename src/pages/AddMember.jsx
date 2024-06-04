@@ -6,10 +6,10 @@ import { useNavigate } from "react-router-dom";
 const AddMember = () => {
   const [employee, setEmployee] = useState({
     id: Math.random().toFixed(1),
-    name: "",
-    email: "",
-    phoneNumber: "",
-    salary: 0,
+    name: String,
+    email: String,
+    phoneNumber: String,
+    salary: Number,
   });
   const navigate = useNavigate();
 
